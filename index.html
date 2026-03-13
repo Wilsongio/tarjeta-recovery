@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Digital Business Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg-color: #f0a74e;
+            --text-dark: #1a1a1a;
+            --text-muted: #555;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card-container {
+            width: 350px;
+            background-color: var(--bg-color);
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 8px solid #333;
+            /* Simula el borde del móvil */
+        }
+
+        .header-bg {
+            height: 250px;
+            background: linear-gradient(135deg, #d1d0cf 0%, #f8f8f7 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Para las ondas del fondo puedes usar un SVG o una imagen de fondo */
+        .header-bg::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.6;
+            background-image: url('img/Logo_Recovery2.2.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right center;
+        }
+
+        .profile-pic {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--white);
+            z-index: 1;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0 5px 0;
+        }
+
+        .title,
+        .company {
+            color: var(--text-muted);
+            margin: 2px 0;
+            font-size: 14px;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .icon-circle {
+            width: 45px;
+            height: 45px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
+
+
+        .quick-actions a {
+            text-decoration: none;
+            color: inherit;
+            /* Mantiene el color original del icono */
+        }
+
+        .icon-circle:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Colores específicos para cada icono (opcional pero recomendado) */
+        .fa-envelope {
+            color: #ea4335;
+        }
+
+        /* Rojo Gmail */
+        .fa-mobile-alt {
+            color: #4285f4;
+        }
+
+        /* Azul */
+        .fa-comment {
+            color: #8e44ad;
+        }
+
+        /* Morado SMS */
+        .fa-whatsapp {
+            color: #25d366;
+        }
+
+        /* Verde WhatsApp */
+
+
+        .contact-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            /* Esto obliga al video a mantener la forma de una pantalla normal */
+            aspect-ratio: 16 / 9;
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .info-group {
+            margin-bottom: 15px;
+        }
+
+        .label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .value {
+            font-size: 14px;
+            font-weight: 500;
+            margin: 2px 0;
+        }
+
+        .add-contact {
+            width: 100%;
+            /* Asegura que el botón use todo el ancho del enlace */
+            padding: 15px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .add-contact:hover {
+            background: #333;
+            /* Un cambio sutil al pasar el mouse */
+        }
+
+        .plus-icon {
+            background: white;
+            color: black;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .location-container {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .map-responsive {
+            overflow: hidden;
+            padding-bottom: 56.25%;
+            /* Relación de aspecto 16:9 */
+            position: relative;
+            height: 0;
+            border-radius: 12px;
+        }
+
+        .map-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            border: 0;
+        }
+
+        .btn-gps {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #4285F4;
+            /* Azul Google Maps */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            box-shadow: 0 4px 10px rgba(66, 133, 244, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-gps:hover {
+            background-color: #357ae8;
+            transform: scale(1.05);
+        }
+
+        .btn-gps i {
+            font-size: 18px;
+        }
+
+        /* Estilos para los Horarios */
+        .schedule-grid {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .schedule-item,
+        .schedule-item-closed {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .schedule-item-closed {
+            color: #e74c3c;
+            /* Rojo para cerrado */
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card-container">
+        <div class="header-bg">
+            <div class="profile-pic">
+                <img src="img/images.jpeg" alt="Foto de perfil">
+            </div>
+        </div>
+
+        <div class="content">
+            <h1 class="name">Saul Navarrete</h1>
+            <p class="title">Licenciado Fisoterapista</p>
+            <p class="company">RECOVERY <br> Centro de Rehabilitacion Fisica</p>
+
+            <div class="quick-actions">
+                <a href="mailto:recoveryfisio@hotmail.com?subject=Consulta%20Cita%20Fisioterapia">
+                    <div class="icon-circle">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </a>
+                <a href="tel:+593987654321">
+                    <div class="icon-circle">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                </a>
+                <a href="sms:+593987654321?body=Hola%20Saul,%20necesito%20información%20sobre%20terapias.">
+                    <div class="icon-circle">
+                        <i class="fas fa-comment"></i>
+                    </div>
+                </a>
+                <a href="https://wa.me/593984992290?text=Hola%20Saul,%20me%20gustaría%20agendar%20una%20cita%20en%20RECOVERY."
+                    target="_blank" style="text-decoration: none;">
+                    <div class="icon-circle">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                </a>
+            </div>
+
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/qATYgnrSsPA?si=KPtsn4a3BsB4rHpE" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+
+            <div class="contact-section">
+                <div class="section-header">
+                    <i class="fas fa-phone"></i>
+                    <span>Contact Us</span>
+                </div>
+                <div class="info-group">
+                    <p class="label">Call Us</p>
+                    <p class="value">+593 9876543210</p>
+                </div>
+                <div class="info-group">
+                    <p class="label">Email</p>
+                    <p class="value">recoveryfisio@hotmail.com</p>
+                </div>
+                <div class="section-header">
+                    <i class="fas fa-clock"></i>
+                    <span>Horarios de Atención</span>
+                </div>
+
+                <div class="schedule-grid">
+                    <div class="schedule-item"><span>Lunes - Viernes</span> <strong>08:00 - 19:00</strong></div>
+                    <div class="schedule-item"><span>Sábado</span> <strong>09:00 - 13:00</strong></div>
+                    <div class="schedule-item-closed"><span>Domingo</span> <strong>Cerrado</strong></div>
+                </div>
+            </div>
+
+
+            <a href="contacto.vcf" download="Saul_Navarrete_Recovery.vcf" style="text-decoration: none; width: 100%;">
+                <button class="add-contact">
+                    Add to Contact <span class="plus-icon">+</span>
+                </button>
+            </a>
+
+        </div>
+
+        <div class="location-container">
+            <div class="section-header">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Nuestra Ubicación</span>
+            </div>
+            <div class="map-responsive">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d151445.7446147445!2d-78.59712453772238!3d-0.21883960557308102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d598afcfffffff%3A0x3f67d1fa36c08534!2sRecovery%20Fisioterapia!5e1!3m2!1ses-419!2sec!4v1773361512198!5m2!1ses-419!2sec"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=RECOVERY+Centro+de+Rehabilitacion+Fisica+Quito"
+                    target="_blank" class="btn-gps">
+                    <i class="fas fa-directions"></i> Cómo llegar
+                </a>
+            </div>
+            <p class="value" style="margin-top: 10px; font-size: 13px; text-align: center;">
+                Quito, Ecuador - Centro de Rehabilitación Física
+            </p>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>

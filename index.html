@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Digital Business Card</title>
-    <link rel="icon" type="image/png" href="img\Recurso 3.png">
+    <link rel="icon" type="image/png" href="img/Recurso 4.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
     <style>
@@ -18,29 +18,31 @@
         }
 
         body {
-            background-color: #f0f0f0;
+            background-color: #ffffff;
+            /* Fondo blanco para que no se vea el fondo gris a los lados */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
-            padding: 10px;
-            /* Reducimos el padding para que la tarjeta tenga espacio de crecer */
+            padding: 0;
+            /* CAMBIA 20px POR 0 */
             margin: 0;
+            /* Asegura que no haya márgenes por defecto */
         }
 
         .card-container {
-            width: 95%;
-            /* Ocupa casi todo el ancho de la pantalla del móvil */
-            max-width: 450px;
-            /* El nuevo ancho máximo para que se vea más grande y estética */
-            margin: 10px auto;
-            /* Centra la tarjeta y deja un pequeño espacio arriba/abajo */
+            width: 100%;
+            /* Ocupa todo el ancho disponible */
+            max-width: 480px;
+            /* Se limita solo en pantallas de PC para no estirarse de más */
             background-color: var(--bg-color);
-            border-radius: 40px;
+            border-radius: 0;
+            /* Opcional: quita el redondeado para que pegue perfecto a los bordes */
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: none;
+            /* Quita la sombra para un look más integrado */
             position: relative;
-            border: 8px solid #333;
-            /* Mantenemos tus líneas negras originales */
+            border: none;
+            /* ELIMINA EL BORDE DE 8px QUE ESTRECHA LA VISTA */
         }
 
         .header-bg {
